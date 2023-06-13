@@ -1,0 +1,37 @@
+﻿@model IEnumerable<BasciASPTutorial.Models.Student>;
+@{
+    ViewData["Title"] = "Hompage";
+}
+<!-- if (datarow > 0) then display table -->
+@if (Model.Count() > 0)
+{
+    <h1 class="text-center">Homepage</h1>
+    <table class="table table-dark">
+        <thead>
+            <tr>
+                <th>StudentID</th>
+                <th>Name</th>
+                <th>Score</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var s in Model)
+            {
+                <tr>
+                    <td>@s.Id</td>
+                    <td>@s.Name</td>
+                    <td>@s.Score</td>
+                    <td><a asp-controller="Student" asp-action="Edit" asp-route-id="@s.Id" class="btn btn-warning">Edit</a></td>
+                    <td><a asp-controller="Student" asp-action="Delete" asp-route-id="@s.Id" class="btn btn-danger" onclick="return confirm('You want to delete @s.Name data ?')">Delete</a></td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+}
+else
+{
+    <div class="alert alert-secondary">There's no student data in system.</div>
+}
